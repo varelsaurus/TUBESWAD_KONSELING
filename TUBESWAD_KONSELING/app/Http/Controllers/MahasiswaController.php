@@ -38,6 +38,8 @@ class MahasiswaController extends Controller
             'jurusan' => $request->jurusan,
             'fakultas' => $request->fakultas,
         ]);
+
+        return new MahasiswaResource(true, 'Detail mahasiswa berhasil ditambahkan');
     }
 
     /**
@@ -45,7 +47,9 @@ class MahasiswaController extends Controller
      */
     public function show(Mahasiswa $mahasiswa)
     {
-        //
+        $mahasiswas = Mahasiswa::find($id);
+
+        return new MahasiswaResource(true, 'Daftar Mahaiswa', $mahasiswas);
     }
 
     /**
