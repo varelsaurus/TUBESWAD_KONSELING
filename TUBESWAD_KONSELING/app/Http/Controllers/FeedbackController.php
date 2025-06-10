@@ -24,13 +24,13 @@ class FeedbackController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'pilih' => 'required|string',
+            'jenis' => 'required|string',
             'isi' => 'required|string',
         ]);
         try {
             Feedback::create([
                 'user_id' => auth()->id(),
-                'pilih' => $request->jenis,
+                'jenis' => $request->jenis,
                 'isi' => $request->isi,
             ]);
             
@@ -56,14 +56,14 @@ class FeedbackController extends Controller
 
     public function update(Request $request, $id) {
         $request->validate([
-            'pilih' => 'required|string',
+            'jenis' => 'required|string',
             'isi' => 'required|string',
         ]);
         
         try {
             $feedback = Feedback::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
             $feedback->update([
-                'pilih' => $request->jenis,
+                'jenis' => $request->jenis,
                 'isi' => $request->isi,
             ]);
             
