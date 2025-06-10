@@ -41,6 +41,8 @@ class JadwalKonselingController extends Controller
             'topik' => $request->topik,
             'waktu_konseling' => $request->waktu_konseling,
         ]);
+
+        return new JadwalKonselingResource(true, 'Jadwal konseling berhasil ditambahkan!', $jadwalKonseling);
     }
 
     /**
@@ -48,7 +50,9 @@ class JadwalKonselingController extends Controller
      */
     public function show(JadwalKonseling $jadwalKonseling)
     {
-        //
+        $jadwalKonseling = JadwalKonseling::find($id);
+
+        return new JadwalKonselingResource(true, 'Daftar Konseling', $jadwalKonseling);
     }
 
     /**

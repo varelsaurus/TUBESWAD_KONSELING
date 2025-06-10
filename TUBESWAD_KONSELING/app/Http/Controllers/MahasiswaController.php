@@ -49,7 +49,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::find($id);
 
-        return new MahasiswaResource(true, 'Daftar Mahaiswa', $mahasiswas);
+        return new MahasiswaResource(true, 'Daftar Mahaiswa', $mahasiswa);
     }
 
 
