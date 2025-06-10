@@ -14,7 +14,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        //
+        $mahasiswas = Mahasiswa::latest()->paginate(5);
+
+        return new MahasiswaResource(true, 'Daftar Mahasiswa', $mahasiswas);
     }
 
     /**
