@@ -14,9 +14,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswas = Mahasiswa::latest()->paginate(5);
+        $mahasiswa = Mahasiswa::latest()->paginate(5);
 
-        return new MahasiswaResource(true, 'Daftar Mahasiswa', $mahasiswas);
+        return new MahasiswaResource(true, 'Daftar Mahasiswa', $mahasiswa);
     }
 
     public function store(Request $request)
@@ -32,14 +32,14 @@ class MahasiswaController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $mahasiswas = Mahasiswa::create([
+        $mahasiswa = Mahasiswa::create([
             'nama' => $request->nama,
             'nim' => $request->nim,
             'jurusan' => $request->jurusan,
             'fakultas' => $request->fakultas,
         ]);
 
-        return new MahasiswaResource(true, 'Detail mahasiswa berhasil ditambahkan');
+        return new MahasiswaResource(true, 'Detail mahasiswa berhasil ditambahkan', $mahasiswa);
     }
 
     /**
@@ -47,25 +47,28 @@ class MahasiswaController extends Controller
      */
     public function show(Mahasiswa $mahasiswa)
     {
-        $mahasiswas = Mahasiswa::find($id);
+        $mahasiswa = Mahasiswa::find($id);
 
         return new MahasiswaResource(true, 'Daftar Mahaiswa', $mahasiswas);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Mahasiswa $mahasiswa)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'sometimes|required',
+            'nim' => 'sometimes|required',
+            'jurusan' => 'sometimes|required',
+            'fakultas' => 'sometimes|required',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json($validator->errors(), 422);
+        }
     }
 
     /**
