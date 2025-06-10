@@ -19,17 +19,6 @@ class MahasiswaController extends Controller
         return new MahasiswaResource(true, 'Daftar Mahasiswa', $mahasiswas);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -37,6 +26,17 @@ class MahasiswaController extends Controller
             'nim' => 'required|string|max:12',
             'jurusan' => 'required|string',
             'fakultas' => 'required|string',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json($validator->errors(), 422);
+        }
+
+        $mahasiswas = Mahasiswa::create([
+            'nama' => $request->nama,
+            'nim' => $request->nim,
+            'jurusan' => $request->jurusan,
+            'fakultas' => $request->fakultas,
         ]);
     }
 
