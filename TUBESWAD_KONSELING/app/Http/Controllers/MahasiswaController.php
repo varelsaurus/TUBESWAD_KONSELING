@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use App\Http\Resource\Mahasiswa
+use App\Http\Resource\MahasiswaResource;
+use Illuminate\Support\Facades\Validator;
+
 class MahasiswaController extends Controller
 {
     /**
