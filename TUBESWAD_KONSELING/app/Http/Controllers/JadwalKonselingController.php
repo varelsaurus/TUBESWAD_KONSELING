@@ -26,7 +26,21 @@ class JadwalKonselingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama_mahasiswa' => 'required|string',
+            'topik' => 'required|string|max:12',
+            'waktu_konseling' => 'required|string',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json($validator->errors(), 422);
+        }
+
+        $jadwalKonseling = JadwalKonseling::create([
+            'nama_mahasiswa' => $request->nama,
+            'topik' => $request->topik,
+            'waktu_konseling' => $request->waktu_konseling,
+        ]);
     }
 
     /**
