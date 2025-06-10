@@ -28,7 +28,7 @@ class JadwalKonselingController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_mahasiswa' => 'required|string',
-            'topik' => 'required|string|max:12',
+            'topik' => 'required|string',
             'waktu_konseling' => 'required|string',
         ]);
 
@@ -56,19 +56,29 @@ class JadwalKonselingController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(JadwalKonseling $jadwalKonseling)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, JadwalKonseling $jadwalKonseling)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama_mahasiswa' => 'required|string',
+            'topik' => 'required|string',
+            'waktu_konseling' => 'required|string',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json($validator->errors(), 422);
+        }
+
+        $jadwalKonseling = JadwalKonseling::find($id);
+
+        $jadwalKonseling->update([
+            'nama_mahasiswa' => 'required|string',
+            'topik' => 'required|string',
+            'waktu_konseling' => 'required|string',
+        ]);
+
+        return new JadwalKonselingResource(true, 'Detail Konseling berhasil diubah!', $jadwalKonseling);
     }
 
     /**
@@ -76,6 +86,10 @@ class JadwalKonselingController extends Controller
      */
     public function destroy(JadwalKonseling $jadwalKonseling)
     {
-        //
+        $jadwalKonseling = JadwalKonseling::find($id);
+
+        $jadwalKonseling->delete();
+
+        return new JadwalKonselingResource(true, 'Data Konseling berhasil dihapus!', null);
     }
 }
