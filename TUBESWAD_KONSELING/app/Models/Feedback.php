@@ -8,7 +8,7 @@ class Feedback extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'jenis', 'isi'];
+    protected $fillable = ['user_id', 'pilih', 'isi'];
 
     public function user()
     {

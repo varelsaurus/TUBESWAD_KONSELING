@@ -12,7 +12,7 @@
         @method('PUT')
 
         <div class="mb-3">
-            <label>Jenis Feedback</label>
+            <label>Pilihan Feedback</label>
             <select name="jenis" class="form-control" required>
                 <option value="">-- Pilih --</option>
                 <option value="Saran" {{ $feedback->jenis == 'Saran' ? 'selected' : '' }}>Saran</option>
