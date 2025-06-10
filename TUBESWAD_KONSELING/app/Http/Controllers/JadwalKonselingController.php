@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\JadwalKonseling;
 use Illuminate\Http\Request;
+use App\Http\Resource\JadwalKonselingResource;
+use Illuminate\Support\Facades\Validator;
 
 class JadwalKonselingController extends Controller
 {
@@ -12,16 +14,12 @@ class JadwalKonselingController extends Controller
      */
     public function index()
     {
-        //
+        $jadwalKonseling = JadwalKonseling::latest()->paginate(5);
+
+        return new JadwalKonselingResource(true, 'Daftar Konseling', $jadwalKonseling);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
