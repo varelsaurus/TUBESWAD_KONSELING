@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('jadwalkonseling', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_mahasiswa');
+            $table->string('topik');
+            $table->string('waktu_konseling');
             $table->timestamps();
+
         });
     }
 
