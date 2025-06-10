@@ -32,7 +32,12 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string',
+            'nim' => 'required|string|max:12',
+            'jurusan' => 'required|string',
+            'fakultas' => 'required|string',
+        ]);
     }
 
     /**
