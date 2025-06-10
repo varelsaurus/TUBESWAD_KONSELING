@@ -69,6 +69,17 @@ class MahasiswaController extends Controller
         if ($validator->fails()){
             return response()->json($validator->errors(), 422);
         }
+
+        $mahasiswa = Mahasiswa::find($id);
+
+        $mahasiswa->update([
+            'nama' => $request->nama,
+            'nim' => $request->nim,
+            'jurusan' => $request->jurusan,
+            'fakultas' => $request->fakultas,
+        ]);
+
+        return new MahasiswaResource(true, 'Detail Mahasiswa berhasil ditambah!', $mahasiswa);
     }
 
     /**
@@ -76,6 +87,6 @@ class MahasiswaController extends Controller
      */
     public function destroy(Mahasiswa $mahasiswa)
     {
-        //
+        
     }
 }
