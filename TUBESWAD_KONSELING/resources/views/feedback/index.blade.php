@@ -6,9 +6,9 @@
 
         {{-- Flash Message --}}
         @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+            <div class="alert alert-success">{{ session('berhasil') }}</div>
         @elseif(session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
+            <div class="alert alert-danger">{{ session('gagal') }}</div>
         @endif
 
         {{-- Tombol Buat Feedback --}}
