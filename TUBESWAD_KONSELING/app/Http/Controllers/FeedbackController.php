@@ -48,6 +48,10 @@ class FeedbackController extends Controller
         return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus.');
     }
 
+    public function edit($id) {
+        $feedback = Feedback::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+        return view('feedback.edit', compact('feedback'));
+    }
 
     public function update(Request $request, $id) {
         $request->validate([
