@@ -68,7 +68,7 @@ class FeedbackController extends Controller
             
             return redirect()->route('feedback.index')->with('success', 'Feedback terbaru berhasil disimpan.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Feedback gagal diperbaharui. Silakan coba lagi.');
+            return back()->with('error', 'Gagal mengupdate feedback. Silakan coba lagi.');
         }
     }
 
