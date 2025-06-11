@@ -37,6 +37,11 @@ class KonselorController extends Controller
         $konselor->update($request->all());
         return redirect()->route('konselor.index')->with('success', 'Data berhasil diperbarui.');
     }
+    public function destroy(Konselor $konselor) {
+        $konselor->delete();
+        return redirect()->route('konselor.index')->with('success', 'Data berhasil dihapus.');
+    }
+
 
 
 
