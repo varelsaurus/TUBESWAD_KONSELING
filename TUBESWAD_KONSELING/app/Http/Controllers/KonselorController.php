@@ -14,5 +14,16 @@ class KonselorController extends Controller
     public function create() {
         return view('konselor.create');
     }
+    public function store(Request $request) {
+        $request->validate([
+            'nama' => 'required',
+            'spesialisasi' => 'required',
+            'kontak' => 'required',
+        ]);
+
+        Konselor::create($request->all());
+        return redirect()->route('konselor.index')->with('success', 'Konselor berhasil ditambahkan.');
+    }
+
 
 }
