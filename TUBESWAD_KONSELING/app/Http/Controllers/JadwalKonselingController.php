@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JadwalKonseling;
 use Illuminate\Http\Request;
-use App\Http\Resource\JadwalKonselingResource;
+use App\Http\Resources\JadwalKonselingResource;
 use Illuminate\Support\Facades\Validator;
 
 class JadwalKonselingController extends Controller
