@@ -17,6 +17,5 @@ Route::get('/keluhan/{id}', [KeluhanController::class, 'show'])->name('keluhan.s
 Route::get('/keluhan/{id}/edit', [KeluhanController::class, 'edit'])->name('keluhan.edit');
 
 Route::put('/keluhan/{id}', [KeluhanController::class, 'update'])->name('keluhan.update');
-Route::delete('/keluhan/{id}', [KeluhanController::class, 'destroy'])->name('keluhan.destroy');
-    
+Route::delete('/keluhan/{id}', [KeluhanController::class, 'destroy'])->name('keluhan.destroy');    
 // });

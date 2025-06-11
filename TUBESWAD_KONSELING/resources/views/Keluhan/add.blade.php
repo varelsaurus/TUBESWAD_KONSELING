@@ -5,7 +5,7 @@
     <h2 class="text-2xl font-bold mb-6">Tambah Keluhan</h2>
     <form action="{{ route('keluhan.store') }}" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         @csrf
-        <input type="hidden" name="mahasiswaId" value="{{ auth()->user()->mahasiswa->id ?? '130' }}">
+        <input type="hidden" name="mahasiswaId" value="{{ auth()->user()->mahasiswa->id ?? '1' }}">
 
         <div class="mb-6">
             <label for="pesan" class="block text-gray-700 text-sm font-bold mb-2">Pesan Keluhan</label>

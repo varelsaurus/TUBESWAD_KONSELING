@@ -19,7 +19,8 @@
                     <tr class="bg-gray-100">
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">No</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Keluhan</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Deskripsi</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Nama</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Tanggal</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Operasi</th>
                     </tr>
@@ -31,6 +32,7 @@
                         <td class="px-6 py-4">{{ $item->pesan }}</td>
                         <td class="px-6 py-4">{{ $item->mahasiswa->nama ?? '-' }}</td>
                         <td class="px-6 py-4">{{ $item->created_at->format('d-m-Y') }}</td>
+                        <td class="px-6 py-4">{{ $item->status }}</td>
                         <td class="px-6 py-4 flex space-x-2">
                             <a href="{{ route('keluhan.edit', $item->keluhanId) }}" class="inline-block px-3 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600">Edit</a>
                             <form action="{{ route('keluhan.destroy', $item->keluhanId) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')" class="inline">
