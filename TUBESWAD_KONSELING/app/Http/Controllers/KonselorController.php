@@ -11,4 +11,8 @@ class KonselorController extends Controller
         $konselors = Konselor::all();
         return view('konselor.index', compact('konselors'));
     }
+    public function create() {
+        return view('konselor.create');
+    }
+
 }
