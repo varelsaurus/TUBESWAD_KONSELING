@@ -12,7 +12,7 @@ class FeedbackController extends Controller
         $feedbacks = Feedback::where('user_id', auth()->id())->get();
         if ($feedbacks->isEmpty()) {
             return view('feedback.index', compact('feedbacks'))
-            ->with('error', 'Tidak ada riwayat feedback. Silakan kirim feedback terlebih dahulu.');
+            ->with('error', 'Tidak ada riwayat feedback. Silakan buat feedback terlebih dahulu.');
         }
         return view('feedback.index', compact('feedbacks'));
     }
@@ -34,12 +34,12 @@ class FeedbackController extends Controller
                 'isi' => $request->isi,
             ]);
             
-            return redirect()->route('feedback.index')->with('success', 'Feedback berhasil tersimpan.');
+            return redirect()->route('feedback.index')->with('success', 'Feedback tersimpan.');
         } catch (\Exception $e) {
             return back()->with('error', 'Feedback gagal disimpan. Silakan coba lagi.');
         }
     }
-    
+
     public function destroy($id) {
         $feedback = Feedback::where('id', $id)
         ->where('user_id', auth()->id())
