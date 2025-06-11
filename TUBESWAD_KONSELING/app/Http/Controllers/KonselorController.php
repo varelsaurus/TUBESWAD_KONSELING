@@ -24,6 +24,10 @@ class KonselorController extends Controller
         Konselor::create($request->all());
         return redirect()->route('konselor.index')->with('success', 'Konselor berhasil ditambahkan.');
     }
+    public function edit(Konselor $konselor) {
+        return view('konselor.edit', compact('konselor'));
+    }
+
 
 
 }
