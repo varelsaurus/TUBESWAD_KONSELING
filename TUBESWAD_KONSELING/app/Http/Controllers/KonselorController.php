@@ -41,6 +41,7 @@ class KonselorController extends Controller
         $konselor->delete();
         return redirect()->route('konselor.index')->with('success', 'Data berhasil dihapus.');
     }
+    
 
 
 
