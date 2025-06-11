@@ -40,14 +40,6 @@ class FeedbackController extends Controller
         }
     }
 
-    public function destroy($id) {
-        $feedback = Feedback::where('id', $id)
-        ->where('user_id', auth()->id())
-        ->firstOrFail();
-        $feedback->delete();
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus.');
-    }
-
 
     public function edit($id) {
         $feedback = Feedback::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
