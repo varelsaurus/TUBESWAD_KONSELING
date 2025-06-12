@@ -1,38 +1,45 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Jadwal Konseling</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Edit Jadwal Konseling</h1>
 
-@section('content')
-<div class="container mx-auto p-6">
-    <h1 class="text-3xl font-semibold text-gray-800 mb-6">Edit Jadwal</h1>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <form action="{{ route('jadwal.update', $jadwalKonseling->id) }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-lg">
-        @csrf
-        @method('PUT')
+        <form action="{{ route('jadwal.update', $jadwalKonseling->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="mb-3">
+                <label for="nama_mahasiswa" class="form-label">Nama Mahasiswa</label>
+                <input type="text" name="nama_mahasiswa" id="nama_mahasiswa" class="form-control" value="{{ old('nama_mahasiswa', $jadwalKonseling->nama_mahasiswa) }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="topik" class="form-label">Topik</label>
+                <input type="text" name="topik" id="topik" class="form-control" value="{{ old('topik', $jadwalKonseling->topik) }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="waktu_konseling" class="form-label">Waktu Konseling</label>
+                <input type="datetime-local" name="waktu_konseling" id="waktu_konseling" class="form-control" value="{{ old('waktu_konseling', $jadwalKonseling->waktu_konseling) }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="{{ route('jadwal.index') }}" class="btn btn-secondary">Kembali</a>
+        </form>
+    </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="nama_mahasiswa" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama:</label>
-            <input type="text" name="nama_mahasiswa" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label for="topik" style="display: block; font-weight: bold; margin-bottom: 5px;">Topik:</label>
-            <input type="text" name="topik" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label for="waktu_konseling" style="display: block; font-weight: bold; margin-bottom: 5px;">Waktu Konseling:</label>
-            <input type="text" name="waktu_konseling" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
-        </div>
-
-
-        <div class="flex justify-start items-center mt-6 p-2 space-x-4">
-            <a href="{{ route('jadwal.index') }}" class="bg-gray-300 text-gray-800 px-6 py-2 rounded-full hover:bg-gray-400 transition duration-300">
-                Kembali
-            </a>
-            <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded-full hover:bg-yellow-600 transition duration-300">
-                Update
-            </button>
-        </div>
-    </form>
-</div>
-
-@endsection
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,61 +1,60 @@
-<div>
-
-    @section('content')
-    <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">Daftar Jadwal Konseling</h2>
-            <a href="{{ route('jadwal.store') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                + Tambah Jadwal
-            </a>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Jadwal Konseling</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Daftar Jadwal Konseling</h1>
 
         @if (session('success'))
-            <div class="mb-4 p-4 bg-green-100 text-green-700 rounded">
+            <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        <table class="min-w-full table-auto border border-gray-300">
+        <a href="{{ route('jadwal.create') }}" class="btn btn-primary mb-3">Tambah Jadwal</a>
+
+        <table class="table table-bordered">
             <thead>
-                <tr class="bg-gray-100 text-left">
-                    <th class="py-2 px-4 border-b">Nama Mahasiswa</th>
-                    <th class="py-2 px-4 border-b">Topik</th>
-                    <th class="py-2 px-4 border-b">Waktu</th>
-                    <th class="py-2 px-4 border-b">Tempat</th>
-                    <th class="py-2 px-4 border-b text-center">Aksi</th>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Mahasiswa</th>
+                    <th>Topik</th>
+                    <th>Waktu Konseling</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($jadwalKonseling as $jadwal)
-                    <tr class="hover:bg-gray-50">
-                        <td class="py-2 px-4 border-b">{{ $jadwal->nama_mahasiswa }}</td>
-                        <td class="py-2 px-4 border-b">{{ $jadwal->topik }}</td>
-                        <td class="py-2 px-4 border-b">{{ $jadwal->waktu_konseling }}</td>
-                        <td class="py-2 px-4 border-b">{{ $jadwal->tempat }}</td>
-                        <td class="py-2 px-4 border-b text-center">
-                            <div class="flex justify-center gap-2">
-                                <a href="{{ route('jadwal-konseling.edit', $jadwal->id) }}" class="text-blue-600 hover:underline">Edit</a>
-
-                                <form action="{{ route('jadwal-konseling.destroy', $jadwal->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus jadwal ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:underline">
-                                        Hapus
-                                    </button>
-                                </form>
-                            </div>
+                @forelse ($jadwalKonseling as $index => $jadwal)
+                    <tr>
+                        <td>{{ $jadwalKonseling->firstItem() + $index }}</td>
+                        <td>{{ $jadwal->nama_mahasiswa }}</td>
+                        <td>{{ $jadwal->topik }}</td>
+                        <td>{{ $jadwal->waktu_konseling }}</td>
+                        <td>
+                            <a href="{{ route('jadwal.edit', $jadwal->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                            </form>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="py-4 px-4 text-center text-gray-500">
-                            Belum ada jadwal konseling.
-                        </td>
+                        <td colspan="5" class="text-center">Belum ada jadwal konseling.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
+
+        {{ $jadwalKonseling->links() }}
     </div>
 
-
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

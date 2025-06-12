@@ -28,20 +28,19 @@ class JadwalKonselingController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
-            'nama_mahasiswa'=>'required',
-            'topik'=>'required',
-            'waktu_konseling'=> 'required',
+            'nama_mahasiswa' => 'required',
+            'topik' => 'required',
+            'waktu_konseling' => 'required',
         ]);
         
         $jadwalDetail = $request->only('nama_mahasiswa', 'topik', 'waktu_konseling');
 
-        auth()->user()->jadwalKonseling()->create($jadwalDetail);
+        auth()->user()->JadwalKonseling()->create($jadwalDetail); 
 
-        session()->flash('success', 'Jadwal berhasil dibuat!'); 
+        session()->flash('success', 'Jadwal berhasil dibuat!');
 
-        redirect()->route('jadwal.index');
+        return redirect()->route('jadwal.index'); // Tambahkan return
     }
 
     /**

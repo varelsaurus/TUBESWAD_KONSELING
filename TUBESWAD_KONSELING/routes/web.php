@@ -38,11 +38,10 @@ Route::get('/keluhan/{id}/edit', [KeluhanController::class, 'edit'])->name('kelu
 Route::put('/keluhan/{id}', [KeluhanController::class, 'update'])->name('keluhan.update');
 Route::delete('/keluhan/{id}', [KeluhanController::class, 'destroy'])->name('keluhan.destroy');
 
-Route::middleware(['auth', 'role:mahasiswa'])->prefix('mahasiswa')->group(function () {
-    Route::get('/jadwal', [JadwalKonselingController::class, 'index'])->name('jadwal.index');
-    Route::get('/jadwal/create', [JadwalKonselingController::class, 'create'])->name('jadwal.create');
-    Route::post('/jadwal/store', [JadwalKonselingController::class, 'store'])->name('jadwal.store');
-    Route::get('/jadwal/{jadwalKonseling}/edit', [JadwalKonselingController::class, 'edit'])->name('jadwal.edit');
-    Route::put('/jadwal/{jadwalKonseling}', [JadwalKonselingController::class, 'update'])->name('jadwal.update');
-    Route::delete('/jadwal/{jadwalKonseling}', [JadwalKonselingController::class, 'destroy'])->name('jadwal.destroy');
-});
+
+Route::get('/jadwal', [JadwalKonselingController::class, 'index'])->name('jadwal.index');
+Route::get('/jadwal/create', [JadwalKonselingController::class, 'create'])->name('jadwal.create');
+Route::post('/jadwal/store', [JadwalKonselingController::class, 'store'])->name('jadwal.store');
+Route::get('/jadwal/{jadwalKonseling}/edit', [JadwalKonselingController::class, 'edit'])->name('jadwal.edit');
+Route::put('/jadwal/{jadwalKonseling}', [JadwalKonselingController::class, 'update'])->name('jadwal.update');
+Route::delete('/jadwal/{jadwalKonseling}', [JadwalKonselingController::class, 'destroy'])->name('jadwal.destroy');
