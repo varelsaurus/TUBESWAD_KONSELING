@@ -1,41 +1,32 @@
-<div>
-    <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
-    @extends('layouts.app')
+@extends('layouts.app')
 
-    @section('content')
-    <div class="max-w-2xl mx-auto mt-10">
-        <h1 class="text-xl font-bold mb-4">Edit Jadwal Konseling</h1>
+@section('title', 'Edit Jadwal')
 
-        <form action="{{ route('jadwal-konseling.update', $jadwal_konseling->id) }}" method="POST" class="space-y-4">
-            @csrf
-            @method('PUT')
+@section('content')
+    <h2 style="font-size: 24px; margin-bottom: 20px; text-align: center;">Edit Jadwal</h2>
 
-            <div>
-                <label class="block font-medium">Nama Mahasiswa</label>
-                <input type="text" name="nama_mahasiswa" value="{{ $jadwal_konseling->nama_mahasiswa }}" class="w-full border rounded px-3 py-2" required>
-            </div>
+    {{-- 1. Isi form action agar data dapat di proses di controller --}}
+    <form action="" method="POST" style="max-width: 500px; margin: 0 auto; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: #fff;">
+        @csrf
+        @method('PUT')
 
-            <div>
-                <label class="block font-medium">Topik</label>
-                <input type="text" name="topik" value="{{ $jadwal_konseling->topik }}" class="w-full border rounded px-3 py-2" required>
-            </div>
+        <div style="margin-bottom: 15px;">
+            <label for="nama_mahasiswa" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama:</label>
+            <input type="text" name="nama" value="{{ $jadwalKonseling->nama_mahasiswa }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
+        </div>
 
-            <div>
-                <label class="block font-medium">Waktu Konseling</label>
-                <input type="datetime-local" name="waktu_konseling" value="{{ \Carbon\Carbon::parse($jadwal_konseling->waktu_konseling)->format('Y-m-d\TH:i') }}" class="w-full border rounded px-3 py-2" required>
-            </div>
+        <div style="margin-bottom: 15px;">
+            <label for="topik" style="display: block; font-weight: bold; margin-bottom: 5px;">Topik:</label>
+            <input type="topik" name="topik" value="{{ $jadwalKonseling->topik }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
+        </div>
 
-            <div>
-                <label class="block font-medium">Tempat</label>
-                <input type="text" name="tempat" value="{{ $jadwal_konseling->tempat }}" class="w-full border rounded px-3 py-2" required>
-            </div>
+        <div style="margin-bottom: 15px;">
+            <label for="waktu_konseling" style="display: block; font-weight: bold; margin-bottom: 5px;">Waktu:</label>
+            <input type="text" name="waktu_konseling" value="{{ $jadwalKonseling->waktu_konseling }}" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
+        </div>
 
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                Perbarui
-            </button>
-            <a href="{{ route('jadwal-konseling.index') }}" class="ml-4 text-gray-600 hover:underline">Batal</a>
-        </form>
-    </div>
-    @endsection
-
-</div>
+        <button type="submit" style="background-color: #4caf50; color: white; padding: 12px 20px; border-radius: 5px; font-size: 16px; width: 100%; cursor: pointer; border: none; transition: background-color 0.3s;">
+            Update
+        </button>
+    </form>
+@endsection
