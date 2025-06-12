@@ -10,6 +10,6 @@ class Mahasiswa extends Model
         'nama',
         'nim',
         'jurusan',
-        'fakultas',
+        'fakultas'
     ];
 }
