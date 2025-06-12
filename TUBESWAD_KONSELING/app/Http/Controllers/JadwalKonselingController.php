@@ -40,7 +40,7 @@ class JadwalKonselingController extends Controller
 
         session()->flash('success', 'Jadwal berhasil dibuat!');
 
-        return redirect()->route('jadwal.index'); // Tambahkan return
+        return redirect()->route('jadwal.index'); 
     }
 
     /**
