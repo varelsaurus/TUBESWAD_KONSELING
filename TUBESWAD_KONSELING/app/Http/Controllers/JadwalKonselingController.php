@@ -15,8 +15,7 @@ class JadwalKonselingController extends Controller
     public function index()
     {
         $jadwalKonseling = JadwalKonseling::latest()->paginate(5);
-
-        return new JadwalKonselingResource(true, 'Daftar Konseling', $jadwalKonseling);
+        return view('jadwal.index', compact('jadwalKonseling'));
     }
 
     
@@ -32,12 +31,12 @@ class JadwalKonselingController extends Controller
             'waktu_konseling' => 'required|string',
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
         $jadwalKonseling = JadwalKonseling::create([
-            'nama_mahasiswa' => $request->nama,
+            'nama_mahasiswa' => $request->nama_mahasiswa,
             'topik' => $request->topik,
             'waktu_konseling' => $request->waktu_konseling,
         ]);
@@ -50,9 +49,7 @@ class JadwalKonselingController extends Controller
      */
     public function show(JadwalKonseling $jadwalKonseling)
     {
-        $jadwalKonseling = JadwalKonseling::find($id);
-
-        return new JadwalKonselingResource(true, 'Daftar Konseling', $jadwalKonseling);
+        return new JadwalKonselingResource(true, 'Detail Konseling', $jadwalKonseling);
     }
 
     /**
@@ -66,16 +63,14 @@ class JadwalKonselingController extends Controller
             'waktu_konseling' => 'required|string',
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        $jadwalKonseling = JadwalKonseling::find($id);
-
         $jadwalKonseling->update([
-            'nama_mahasiswa' => 'required|string',
-            'topik' => 'required|string',
-            'waktu_konseling' => 'required|string',
+            'nama_mahasiswa' => $request->nama_mahasiswa,
+            'topik' => $request->topik,
+            'waktu_konseling' => $request->waktu_konseling,
         ]);
 
         return new JadwalKonselingResource(true, 'Detail Konseling berhasil diubah!', $jadwalKonseling);
@@ -86,8 +81,6 @@ class JadwalKonselingController extends Controller
      */
     public function destroy(JadwalKonseling $jadwalKonseling)
     {
-        $jadwalKonseling = JadwalKonseling::find($id);
-
         $jadwalKonseling->delete();
 
         return new JadwalKonselingResource(true, 'Data Konseling berhasil dihapus!', null);

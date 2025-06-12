@@ -1,12 +1,10 @@
 <div>
-    <!-- Very little is needed to make a happy life. - Marcus Aurelius -->
-    @extends('layouts.app')
 
     @section('content')
     <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">Daftar Jadwal Konseling</h2>
-            <a href="{{ route('jadwal-konseling.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <a href="{{ route('jadwal.store') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                 + Tambah Jadwal
             </a>
         </div>
@@ -58,7 +56,6 @@
             </tbody>
         </table>
     </div>
-    @endsection
 
 
 </div>
