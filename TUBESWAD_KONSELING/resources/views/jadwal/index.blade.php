@@ -16,7 +16,10 @@
             </div>
         @endif
 
-        <a href="{{ route('jadwal.create') }}" class="btn btn-primary mb-3">Tambah Jadwal</a>
+        <div class="mb-3">
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('jadwal.create') }}" class="btn btn-primary">Tambah Jadwal</a>
+        </div>
 
         <table class="table table-bordered">
             <thead>
