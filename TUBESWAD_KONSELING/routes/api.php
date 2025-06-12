@@ -18,3 +18,14 @@ Route::get('/keluhan/{id}', [KeluhanController::class, 'show']);
 Route::post('/keluhan', [KeluhanController::class, 'store']);
 Route::put('/keluhan/{id}', [KeluhanController::class, 'update']);
 Route::delete('/keluhan/{id}', [KeluhanController::class, 'destroy']);
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JadwalKonselingController;
+
+
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('jadwal', JadwalKonselingController::class);
+});
+
+
