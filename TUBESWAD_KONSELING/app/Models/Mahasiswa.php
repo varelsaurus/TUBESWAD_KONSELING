@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mahasiswa extends Model
 {
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     protected $fillable = [
         'nama',
         'nim',
