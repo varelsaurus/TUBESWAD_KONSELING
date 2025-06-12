@@ -15,10 +15,12 @@ class JadwalKonselingController extends Controller
     public function index()
     {
         $jadwalKonseling = JadwalKonseling::latest()->paginate(5);
-
-        return new JadwalKonselingResource(true, 'Daftar Konseling', $jadwalKonseling);
+        return view('jadwal.index', compact('jadwalKonseling'));
     }
 
+    public function create(){
+        return view('jadwal.create');
+    }
     
 
     /**
@@ -26,59 +28,53 @@ class JadwalKonselingController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nama_mahasiswa' => 'required|string',
-            'topik' => 'required|string',
-            'waktu_konseling' => 'required|string',
+        $request->validate([
+            'nama_mahasiswa' => 'required',
+            'topik' => 'required',
+            'waktu_konseling' => 'required',
         ]);
+        
+        $jadwalDetail = $request->only('nama_mahasiswa', 'topik', 'waktu_konseling');
 
-        if ($validator->fails()){
-            return response()->json($validator->errors(), 422);
-        }
+        auth()->user()->JadwalKonseling()->create($jadwalDetail); 
 
-        $jadwalKonseling = JadwalKonseling::create([
-            'nama_mahasiswa' => $request->nama,
-            'topik' => $request->topik,
-            'waktu_konseling' => $request->waktu_konseling,
-        ]);
+        session()->flash('success', 'Jadwal berhasil dibuat!');
 
-        return new JadwalKonselingResource(true, 'Jadwal konseling berhasil ditambahkan!', $jadwalKonseling);
+        return redirect()->route('jadwal.index'); // Tambahkan return
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(JadwalKonseling $jadwalKonseling)
+    public function show(JadwalKonseling $jadwalKonseling, string $id)
     {
-        $jadwalKonseling = JadwalKonseling::find($id);
-
-        return new JadwalKonselingResource(true, 'Daftar Konseling', $jadwalKonseling);
+        $jadwalKonseling= JadwalKonseling::find($id);
+        return view('jadwal.show', compact('jadwalKonseling'));
     }
 
+    public function edit(JadwalKonseling $jadwalKonseling){
+        return view('jadwal.edit', compact('jadwalKonseling'));
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, JadwalKonseling $jadwalKonseling)
     {
-        $validator = Validator::make($request->all(), [
-            'nama_mahasiswa' => 'required|string',
-            'topik' => 'required|string',
-            'waktu_konseling' => 'required|string',
+        $request->validate([
+            'nama_mahasiswa'=>'required',
+            'topik'=>'required',
+            'waktu_konseling'=> 'required',
         ]);
 
-        if ($validator->fails()){
-            return response()->json($validator->errors(), 422);
-        }
+        $jadwalDetail= $request->only('nama_mahasiswa','topik','waktu_konseling');
 
-        $jadwalKonseling = JadwalKonseling::find($id);
+        $jadwalKonseling->update($jadwalDetail);
 
-        $jadwalKonseling->update([
-            'nama_mahasiswa' => 'required|string',
-            'topik' => 'required|string',
-            'waktu_konseling' => 'required|string',
-        ]);
+        session()->flash('success', 'Jadwal berhasil diperbarui!');
 
-        return new JadwalKonselingResource(true, 'Detail Konseling berhasil diubah!', $jadwalKonseling);
+        return redirect()->route('jadwal.index');
+
+        
     }
 
     /**
@@ -86,10 +82,10 @@ class JadwalKonselingController extends Controller
      */
     public function destroy(JadwalKonseling $jadwalKonseling)
     {
-        $jadwalKonseling = JadwalKonseling::find($id);
-
         $jadwalKonseling->delete();
 
-        return new JadwalKonselingResource(true, 'Data Konseling berhasil dihapus!', null);
+        session()->flash('success','jadwal berhasil dihapus!');
+        return redirect()->route('jadwal.index');
+        
     }
 }

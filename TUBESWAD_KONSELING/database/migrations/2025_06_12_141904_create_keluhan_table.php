@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
         Schema::create('keluhan', function (Blueprint $table) {
             $table->id('keluhanId');
-            $table->unsignedBigInteger('mahasiswaId');
+            $table->unsignedBigInteger('mahasiswa_id'); // Ubah jadi mahasiswa_id
             $table->text('pesan');
             $table->enum('status', ['baru', 'diproses', 'selesai'])->default('baru');
             $table->timestamps();
 
-            $table->foreign('mahasiswaId')->references('mahasiswaId')->on('mahasiswa')->onDelete('cascade');
+            // Ubah referensi ke kolom 'id' di tabel mahasiswa
+            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswa')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('keluhan');
     }
 };

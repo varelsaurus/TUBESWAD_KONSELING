@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\KeluhanController;
-use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\JadwalKonselingController;
 
 // Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
@@ -18,10 +18,6 @@ Route::get('/keluhan/{id}', [KeluhanController::class, 'show']);
 Route::post('/keluhan', [KeluhanController::class, 'store']);
 Route::put('/keluhan/{id}', [KeluhanController::class, 'update']);
 Route::delete('/keluhan/{id}', [KeluhanController::class, 'destroy']);
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JadwalKonselingController;
-
 
 
 Route::middleware('auth:sanctum')->group(function(){

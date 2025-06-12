@@ -1,31 +1,63 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Jadwal Konseling</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Daftar Jadwal Konseling</h1>
 
-@section('title', 'Buat Jadwal Baru')
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-@section('content')
-    <h2 style="font-size: 24px; margin-bottom: 20px; text-align: center;"> Buat Jadwal Baru</h2>
-
-
-    <form action="" method="POST" style="max-width: 500px; margin: 0 auto; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: #fff;">
-        @csrf
-
-        <div style="margin-bottom: 15px;">
-            <label for="nama_mahasiswa" style="display: block; font-weight: bold; margin-bottom: 5px;">Nama:</label>
-            <input type="text" name="nama" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
+        <div class="mb-3">
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('jadwal.create') }}" class="btn btn-primary">Tambah Jadwal</a>
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="topik" style="display: block; font-weight: bold; margin-bottom: 5px;">Topik:</label>
-            <input type="text" name="topik" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
-        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Mahasiswa</th>
+                    <th>Topik</th>
+                    <th>Waktu Konseling</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($jadwalKonseling as $index => $jadwal)
+                    <tr>
+                        <td>{{ $jadwalKonseling->firstItem() + $index }}</td>
+                        <td>{{ $jadwal->nama_mahasiswa }}</td>
+                        <td>{{ $jadwal->topik }}</td>
+                        <td>{{ $jadwal->waktu_konseling }}</td>
+                        <td>
+                            <a href="{{ route('jadwal.edit', $jadwal->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Belum ada jadwal konseling.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
 
-        <div style="margin-bottom: 15px;">
-            <label for="waktu_konseling" style="display: block; font-weight: bold; margin-bottom: 5px;">Waktu Konseling:</label>
-            <input type="text" name="waktu_konseling" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
-        </div>
+        {{ $jadwalKonseling->links() }}
+    </div>
 
-        <button type="submit" style="background-color: #4caf50; color: white; padding: 12px 20px; border-radius: 5px; font-size: 16px; width: 100%; cursor: pointer; border: none; transition: background-color 0.3s;">
-            Simpan
-        </button>
-    </form>
-@endsection
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
