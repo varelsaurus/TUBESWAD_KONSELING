@@ -31,7 +31,7 @@ class JadwalKonselingController extends Controller
         $request->validate([
             'nama_mahasiswa' => 'required',
             'topik' => 'required',
-            'waktu_konseling' => 'required',
+            'waktu_konseling' => 'required|date_format:Y-m-d H:i:s',
         ]);
         
         $jadwalDetail = $request->only('nama_mahasiswa', 'topik', 'waktu_konseling');
@@ -40,7 +40,7 @@ class JadwalKonselingController extends Controller
 
         session()->flash('success', 'Jadwal berhasil dibuat!');
 
-        return redirect()->route('jadwal.index'); // Tambahkan return
+        return redirect()->route('jadwal.index'); 
     }
 
     /**
@@ -63,7 +63,7 @@ class JadwalKonselingController extends Controller
         $request->validate([
             'nama_mahasiswa'=>'required',
             'topik'=>'required',
-            'waktu_konseling'=> 'required',
+            'waktu_konseling' => 'required|date_format:Y-m-d H:i:s',
         ]);
 
         $jadwalDetail= $request->only('nama_mahasiswa','topik','waktu_konseling');
@@ -87,5 +87,77 @@ class JadwalKonselingController extends Controller
         session()->flash('success','jadwal berhasil dihapus!');
         return redirect()->route('jadwal.index');
         
+    }
+
+    public function apiIndex()
+    {
+        $jadwalKonseling = JadwalKonseling::latest()->paginate(5);
+        return JadwalKonselingResource::collection($jadwalKonseling);
+    }
+
+    public function apiStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama_mahasiswa' => 'required',
+            'topik' => 'required',
+            'waktu_konseling' => 'required|date_format:Y-m-d H:i:s',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $jadwalDetail = $request->only('nama_mahasiswa', 'topik', 'waktu_konseling');
+        $jadwal = auth()->user()->JadwalKonseling()->create($jadwalDetail);
+
+        return new JadwalKonselingResource($jadwal);
+    }
+
+    public function apiShow($id)
+    {
+        $jadwalKonseling = JadwalKonseling::find($id);
+
+        if (!$jadwalKonseling) {
+            return response()->json(['message' => 'Jadwal tidak ditemukan'], 404);
+        }
+
+        return new JadwalKonselingResource($jadwalKonseling);
+    }
+
+    public function apiUpdate(Request $request, $id)
+    {
+        $jadwalKonseling = JadwalKonseling::find($id);
+
+        if (!$jadwalKonseling) {
+            return response()->json(['message' => 'Jadwal tidak ditemukan'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'nama_mahasiswa' => 'required',
+            'topik' => 'required',
+            'waktu_konseling' => 'required|date_format:Y-m-d H:i:s',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $jadwalDetail = $request->only('nama_mahasiswa', 'topik', 'waktu_konseling');
+        $jadwalKonseling->update($jadwanDetail);
+
+        return new JadwalKonselingResource($jadwalKonseling);
+    }
+
+    public function apiDestroy($id)
+    {
+        $jadwalKonseling = JadwalKonseling::find($id);
+
+        if (!$jadwalKonseling) {
+            return response()->json(['message' => 'Jadwal tidak ditemukan'], 404);
+        }
+
+        $jadwalKonseling->delete();
+
+        return response()->json(['message' => 'Jadwal berhasil dihapus!']);
     }
 }
