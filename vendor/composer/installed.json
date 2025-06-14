@@ -261,7 +261,7 @@
                     "dev-master": "12.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Illuminate\\Bus\\": ""
@@ -317,7 +317,7 @@
                     "dev-master": "12.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "functions.php",
@@ -493,7 +493,7 @@
                     "dev-master": "12.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Illuminate\\Container\\": ""
@@ -742,7 +742,7 @@
                     "dev-master": "12.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "functions.php"
